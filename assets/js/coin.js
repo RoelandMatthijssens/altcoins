@@ -9,7 +9,7 @@ var Coin = function Coin(symbol, name, amount){
     self.percentage_change_1h = 0;
     self.total_value = 0;
 
-    self.render = function renderCoin(){
+    self.render = function renderCoin(container){
         var image_url = 'https://files.coinmarketcap.com/static/img/coins/32x32/'+self.name+'.png'
         var row = $('<tr class="coin">');
             $(row).append($('<td><img class="logo" src="'+image_url+'"></td>'));
@@ -21,22 +21,14 @@ var Coin = function Coin(symbol, name, amount){
         $(row).append($('<td>'+self.amount.toFixed(3)+'</td>'));
         $(row).append($('<td>'+self.total_value.toFixed(3)+'</td>'));
 
-        return row
+        $(container).prepend(row);
     }
-    self.getStats = function getStats(){
-    }
-    self.update = function update(container){
-        var promise = $.getJSON(TICKER_BASE_URL+self.name+'?convert=EUR', function(data){
-            self.current_price = Number(data[0].price_eur);
-            self.percentage_change_7d = render_delta(data[0].percent_change_7d);
-            self.percentage_change_24h = render_delta(data[0].percent_change_24h);
-            self.percentage_change_1h = render_delta(data[0].percent_change_1h);
-            self.total_value = self.amount * self.current_price;
-        }).then(function(){
-            coin = self.render();
-            $(container).prepend(coin);
-        });
-        return promise;
+    self.update = function update(data){
+        self.percentage_change_7d = render_delta(data.percent_change_7d);
+        self.percentage_change_24h = render_delta(data.percent_change_24h);
+        self.percentage_change_1h = render_delta(data.percent_change_1h);
+        self.current_price = data.price_eur;
+        self.total_value = self.current_price * self.amount;
     }
     self.add = function addCoin(amount){
         self.amount += amount;

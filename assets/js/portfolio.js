@@ -1,25 +1,31 @@
 var Portfolio = function Portfolio(){
     var self = {};
-    self.coins = [];
+    self.coins = {};
     self.total = 0;
     self.addCoin = function addCoinToPortfolio(symbol, name, amount){
         coin = Coin(symbol, name, amount);
-        self.coins.push(coin);
+        self.coins[symbol] = coin;
     }
+
+    self.get_ticker_data = function getTickerData(){
+        return $.getJSON(TICKER_BASE_URL+'?convert=EUR&limit=0', function(data){
+            return data;
+        });
+    }
+
     self.render = function renderPortfolio(){
         var container = $('#tablerows');
+        self.total = 0;
         container.empty();
-        var total = 0;
-        promises = [];
-        self.coins.map(function(coin){
-            promises.push(coin.update(container));
-        });
-        $.when(...promises).done(function(){
-            self.total = 0;
-            self.coins.map(function(coin){
-                self.total += coin.total_value;
+        self.get_ticker_data().then(function(coins){
+            $.each(coins, function(index, coin_data){
+                var coin = self.coins[coin_data.symbol]
+                if(coin){
+                    coin.update(coin_data);
+                    self.total += coin.total_value;
+                    coin.render(container);
+                }
             });
-            console.log(self.total);
             self.render_total(container);
         });
     }
