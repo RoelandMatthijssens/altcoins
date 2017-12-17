@@ -9,6 +9,7 @@
         <script src="assets/js/portfolio.js"></script>
         <script src="assets/js/constants.js"></script>
         <script src="assets/js/coin_db.js"></script>
+        <script type="text/javascript" src="http://tablesorter.com/__jquery.tablesorter.min.js"></script>
         <script>
             $( document ).ready(function() {
                 init();
@@ -18,8 +19,15 @@
 <body>
     <br/>
     <div class="container">
+        <div id="totals" class="row">
+            <div class="col-sm" id="total">
+            </div>
+            <div class="col-sm" id="total-profit">
+            </div>
+        </div>
+        <br/>
         <div class="row">
-            <table class="table table-bordered table-hover table-condensed table-striped">
+            <table id="coin-table" class="table table-bordered table-hover table-condensed table-striped tablesorter">
                 <thead>
                     <tr>
                         <th scope="col"></th>

@@ -23,3 +23,9 @@ img.logo{
     width: 32px;
     height: 32px;
 }
+
+#totals{
+    vertical-align: center;
+    text-align: center;
+    font-size: 4em;
+}

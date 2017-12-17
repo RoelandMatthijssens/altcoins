@@ -27,17 +27,19 @@ var Portfolio = function Portfolio(){
                 }
             });
             self.render_total(container);
+            $("#coin-table").tablesorter({
+                textExtraction: function(node){
+                    var content = node.innerText;
+                    return content.replace(/[^a-zA-Z0-9\.\-]/g,'');
+                }
+            });
         });
     }
 
     self.render_total = function renderTotals(container){
-        var row = $('<tr class="coin" id="totals">');
-        $(row).append($('<td colspan=5>'));
-        $(row).append($('<td>Total</td>'));
-        $(row).append($('<td><b>&euro;'+self.total.toFixed(3)+'</b></td>'));
-        $(row).append($('<td>'+render_delta(self.total-TOTAL_INVESTMENT)+'</td>'));
-        $(container).append(row);
-        document.title = "AltCoins - € " + self.total.toFixed(2);
+        $('#total').html('&euro;'+self.total.toFixed(3));
+        $('#total-profit').html(render_delta(self.total-TOTAL_INVESTMENT));
+        document.title = "AC " + self.total.toFixed(2);
     }
     return self;
 }

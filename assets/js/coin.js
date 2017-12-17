@@ -41,7 +41,6 @@ function render_delta(value){
     value = value.toFixed(2);
     if(value < 0)
     {
-        value = 0 - value;
         return "<span class='red'>&#x25BE; " + value + "</span>";
     }else{
 
