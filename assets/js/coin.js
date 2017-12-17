@@ -1,5 +1,5 @@
 var Coin = function Coin(symbol, name, amount){
-    var self = {};
+    let self = {};
     self.symbol = symbol;
     self.name = name;
     self.amount = amount;
@@ -10,8 +10,8 @@ var Coin = function Coin(symbol, name, amount){
     self.total_value = 0;
 
     self.render = function renderCoin(container){
-        var image_url = 'https://files.coinmarketcap.com/static/img/coins/32x32/'+self.name+'.png'
-        var row = $('<tr class="coin">');
+        let image_url = 'https://files.coinmarketcap.com/static/img/coins/32x32/'+self.name+'.png'
+        let row = $('<tr class="coin">');
             $(row).append($('<td><img class="logo" src="'+image_url+'"></td>'));
         $(row).append($('<td>'+self.symbol+'</td>'));
         $(row).append($('<td>'+self.name+'</td>'));
