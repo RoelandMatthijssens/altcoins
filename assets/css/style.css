@@ -1,0 +1,25 @@
+.red {
+    color: red;
+}
+
+.green {
+    color: blue;
+}
+
+tr.coin{
+    height: 48px;
+}
+tr.coin>td, th{
+    text-align: center;
+    vertical-align: center;
+}
+
+thead th {
+    background-color: #147acc;
+    color: white;
+}
+
+img.logo{
+    width: 32px;
+    height: 32px;
+}

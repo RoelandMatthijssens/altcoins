@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>AltCoins</title>
+        <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="assets/css/style.css" />
+        <script src="libs/jquery/jquery-3.2.1.min.js"></script>
+        <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/coin.js"></script>
+        <script src="assets/js/portfolio.js"></script>
+        <script src="assets/js/constants.js"></script>
+        <script src="assets/js/coin_db.js"></script>
+        <script>
+            $( document ).ready(function() {
+                init();
+            });
+        </script>
+    </head>
+<body>
+    <br/>
+    <div class="container">
+        <div class="row">
+            <table class="table table-bordered table-hover table-condensed table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Symbol</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">7d %</th>
+                        <th scope="col">24h %</th>
+                        <th scope="col">1h %</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody id="tablerows">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
