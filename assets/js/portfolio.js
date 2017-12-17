@@ -31,7 +31,11 @@ var Portfolio = function Portfolio(){
                 textExtraction: function(node){
                     var content = node.innerText;
                     return content.replace(/[^a-zA-Z0-9\.\-]/g,'');
-                }
+                },
+                headers: {
+                    0: {sorter: false}
+                },
+                sortList: [[7,1]]
             });
         });
     }
@@ -39,7 +43,7 @@ var Portfolio = function Portfolio(){
     self.render_total = function renderTotals(container){
         $('#total').html('&euro;'+self.total.toFixed(3));
         $('#total-profit').html(render_delta(self.total-TOTAL_INVESTMENT));
-        document.title = "AC " + self.total.toFixed(2);
+        document.title = "AC €" + self.total.toFixed(2);
     }
     return self;
 }
