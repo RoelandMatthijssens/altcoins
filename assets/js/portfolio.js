@@ -43,8 +43,9 @@ var Portfolio = function Portfolio(){
     }
 
     self.render_total = function renderTotals(container){
-        $('#total').html('&euro;'+self.total.toFixed(3));
+        $('#total').html('&euro;'+self.total.toFixed(2));
         $('#total-profit').html(render_delta(self.total-self.total_investment));
+        $('#total-investment').html('&euro;'+self.total_investment.toFixed(2));
         document.title = "AC €" + self.total.toFixed(2);
     }
     return self;
