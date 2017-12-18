@@ -15,7 +15,7 @@ var Coin = function Coin(symbol, name){
         let image_url = 'https://files.coinmarketcap.com/static/img/coins/32x32/'+self.name+'.png'
         let row = $('<tr class="coin">');
         $(row).append($('<td><img class="logo" src="'+image_url+'"></td>'));
-        $(row).append($('<td>'+self.symbol+'</td>'));
+        $(row).append($('<td><a href="' + self.get_market_cap_url() + '" target="_blank">' + self.symbol + '</a></td>'));
         $(row).append($('<td>'+self.name+'</td>'));
         $(row).append($('<td>'+self.percentage_change_7d+'</td>'));
         $(row).append($('<td>'+self.percentage_change_24h+'</td>'));
@@ -27,6 +27,11 @@ var Coin = function Coin(symbol, name){
 
         $(container).prepend(row);
     }
+
+    self.get_market_cap_url = function getMarketCapUrl(){
+        return MARKET_CAP_URL+'currencies/' + self.name;
+    }
+
     self.update = function update(data){
         self.percentage_change_7d = render_delta(data.percent_change_7d);
         self.percentage_change_24h = render_delta(data.percent_change_24h);
