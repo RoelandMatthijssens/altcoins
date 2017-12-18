@@ -1,5 +1,7 @@
 var coin_db = [
-    // example:
-    { symbol: 'BTC', name: 'bitcoin', amount: 0.94 },
-    { symbol: 'LTC', name: 'litecoin', amount: 4.33 },
+    //example
+    { symbol: 'BTC',    name: 'bitcoin',    amount: 0.01,   price: 15000.00 }, //bought some btc at 15k
+    { symbol: 'LTC',    name: 'litecoin',   amount: 2.22,   price: 280.00 },
+    { symbol: 'ETH',    name: 'ethereum',   amount: 1.01,   price: 650.08 },
+    { symbol: 'BTC',    name: 'bitcoin',    amount: 0.123,  price: 15500.00 }, //bought some extra btc at 15.5k
 ]
