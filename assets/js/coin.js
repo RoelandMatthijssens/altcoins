@@ -1,25 +1,29 @@
-var Coin = function Coin(symbol, name, amount){
+var Coin = function Coin(symbol, name){
     let self = {};
     self.symbol = symbol;
     self.name = name;
-    self.amount = amount;
+    self.amount = 0;
     self.current_price = 0;
     self.percentage_change_7d = 0;
     self.percentage_change_24h = 0;
     self.percentage_change_1h = 0;
     self.total_value = 0;
+    self.total_investment = 0;
+    self.purchases = [];
 
     self.render = function renderCoin(container){
         let image_url = 'https://files.coinmarketcap.com/static/img/coins/32x32/'+self.name+'.png'
         let row = $('<tr class="coin">');
-            $(row).append($('<td><img class="logo" src="'+image_url+'"></td>'));
+        $(row).append($('<td><img class="logo" src="'+image_url+'"></td>'));
         $(row).append($('<td>'+self.symbol+'</td>'));
         $(row).append($('<td>'+self.name+'</td>'));
         $(row).append($('<td>'+self.percentage_change_7d+'</td>'));
         $(row).append($('<td>'+self.percentage_change_24h+'</td>'));
         $(row).append($('<td>'+self.percentage_change_1h+'</td>'));
-        $(row).append($('<td>'+self.amount.toFixed(3)+'</td>'));
-        $(row).append($('<td>'+self.total_value.toFixed(3)+'</td>'));
+        $(row).append($('<td>'+self.amount.toFixed(2)+'</td>'));
+        $(row).append($('<td>'+self.total_investment.toFixed(2)+'</td>'));
+        $(row).append($('<td>'+self.total_value.toFixed(2)+'</td>'));
+        $(row).append($('<td>'+self.total_profit+'</td>'));
 
         $(container).prepend(row);
     }
@@ -28,10 +32,21 @@ var Coin = function Coin(symbol, name, amount){
         self.percentage_change_24h = render_delta(data.percent_change_24h);
         self.percentage_change_1h = render_delta(data.percent_change_1h);
         self.current_price = data.price_eur;
+        self.calculate_total_investment();
         self.total_value = self.current_price * self.amount;
+        self.total_profit = render_delta(self.total_value - self.total_investment);
     }
-    self.add = function addCoin(amount){
-        self.amount += amount;
+    self.add_buy = function addBuy(amount, price){
+        self.purchases.push({amount: amount, price: price});
+    }
+
+    self.calculate_total_investment = function calculateInvestment(){
+        self.total_investment = 0;
+        self.amount = 0;
+        $.each(self.purchases, function(index, purchase){
+            self.amount += purchase.amount;
+            self.total_investment += purchase.price * purchase.amount;
+        });
     }
     return self;
 }

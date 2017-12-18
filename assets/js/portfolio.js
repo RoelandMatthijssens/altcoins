@@ -2,9 +2,13 @@ var Portfolio = function Portfolio(){
     let self = {};
     self.coins = {};
     self.total = 0;
-    self.addCoin = function addCoinToPortfolio(symbol, name, amount){
-        coin = Coin(symbol, name, amount);
-        self.coins[symbol] = coin;
+    self.addCoin = function addCoinToPortfolio(symbol, name, amount, price){
+        coin = self.coins[symbol];
+        if (!coin){
+            coin = Coin(symbol, name);
+            self.coins[symbol] = coin;
+        }
+        coin.add_buy(amount, price);
     }
 
     self.get_ticker_data = function getTickerData(){
@@ -16,12 +20,14 @@ var Portfolio = function Portfolio(){
     self.render = function renderPortfolio(){
         let container = $('#tablerows');
         self.total = 0;
+        self.total_investment = 0;
         container.empty();
         self.get_ticker_data().then(function(coins){
             $.each(coins, function(index, coin_data){
                 let coin = self.coins[coin_data.symbol]
                 if(coin){
                     coin.update(coin_data);
+                    self.total_investment += coin.total_investment;
                     self.total += coin.total_value;
                     coin.render(container);
                 }
@@ -31,14 +37,14 @@ var Portfolio = function Portfolio(){
         }).then(function(){
             $("#coin-table").trigger("update");
             setTimeout(function (){
-                $("#coin-table").trigger("sorton",[[[7,1]]]);
+                $("#coin-table").trigger("sorton",[[[9,1]]]);
             });
         });
     }
 
     self.render_total = function renderTotals(container){
         $('#total').html('&euro;'+self.total.toFixed(3));
-        $('#total-profit').html(render_delta(self.total-TOTAL_INVESTMENT));
+        $('#total-profit').html(render_delta(self.total-self.total_investment));
         document.title = "AC €" + self.total.toFixed(2);
     }
     return self;
@@ -47,7 +53,7 @@ let portfolio = Portfolio();
 
 function init(){
     coin_db.map(function(coin){
-        portfolio.addCoin(coin.symbol, coin.name, coin.amount);
+        portfolio.addCoin(coin.symbol, coin.name, coin.amount, coin.price);
     });
     window.setInterval(portfolio.render, 5*60*1000); //update every 5 minutes
     $("#coin-table").tablesorter({
