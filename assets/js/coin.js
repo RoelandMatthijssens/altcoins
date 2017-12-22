@@ -20,8 +20,9 @@ var Coin = function Coin(symbol, name){
         $(row).append($('<td>'+self.percentage_change_7d+'</td>'));
         $(row).append($('<td>'+self.percentage_change_24h+'</td>'));
         $(row).append($('<td>'+self.percentage_change_1h+'</td>'));
-        $(row).append($('<td>'+self.amount.toFixed(2)+'</td>'));
         $(row).append($('<td>'+self.total_investment.toFixed(2)+'</td>'));
+        $(row).append($('<td>'+self.amount.toFixed(2)+'</td>'));
+        $(row).append($('<td>'+Number(self.current_price).toFixed(2)+'</td>'));
         $(row).append($('<td>'+self.total_value.toFixed(2)+'</td>'));
         $(row).append($('<td>'+self.total_profit+'</td>'));
 

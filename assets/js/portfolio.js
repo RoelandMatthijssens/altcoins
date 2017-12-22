@@ -37,7 +37,7 @@ var Portfolio = function Portfolio(){
         }).then(function(){
             $("#coin-table").trigger("update");
             setTimeout(function (){
-                $("#coin-table").trigger("sorton",[[[9,1]]]);
+                $("#coin-table").trigger("sorton",[[[10,1]]]);
             });
         });
     }
