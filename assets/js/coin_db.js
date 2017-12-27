@@ -5,3 +5,7 @@ var coin_db = [
     { symbol: 'ETH',    name: 'ethereum',   amount: 1.01,   price: 650.08 },
     { symbol: 'BTC',    name: 'bitcoin',    amount: 0.123,  price: 15500.00 }, //bought some extra btc at 15.5k
 ]
+
+var finished_coin_db = [
+    { symbol: 'NUKO',    name: 'nekonium',   amount: 222,   buy_price: 2.80, sell_price: 3.00 }
+]
