@@ -25,7 +25,7 @@ var Portfolio = function Portfolio(){
         self.get_ticker_data().then(function(coins){
             $.each(coins, function(index, coin_data){
                 let coin = self.coins[coin_data.symbol]
-                if(coin){
+                if(coin && coin.name == coin_data.id){
                     coin.update(coin_data);
                     self.total_investment += coin.total_investment;
                     self.total += coin.total_value;
