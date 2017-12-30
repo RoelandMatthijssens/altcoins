@@ -75,7 +75,7 @@ var Portfolio = function Portfolio(){
         $('#finished-totals').html(render_delta(self.finished_profits.toFixed(2)));
         $('#total').html(self.total.toFixed(2));
         $('#total-profit').html(render_delta(self.total_profits+self.finished_profits));
-        $('#total-profit-percentage').html(render_delta(100 * self.total_profits/self.total_investment));
+        $('#total-profit-percentage').html(render_delta(100 * self.total_profits/self.total_investment)+"%");
         document.title = "AC €" + self.total.toFixed(2);
     }
     return self;
