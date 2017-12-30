@@ -4,6 +4,7 @@ var Portfolio = function Portfolio(){
     self.finished_coins = {};
     self.finished_profits  = 0;
     self.total = 0;
+    self.total_profits = 0;
     self.addCoin = function addCoinToPortfolio(symbol, name, amount, price){
         coin = self.coins[symbol];
         if (!coin){
@@ -33,10 +34,10 @@ var Portfolio = function Portfolio(){
 
     self.render_live_coins = function renderLiveCoins(container_selector){
         let container = $(container_selector);
-        container.empty();
         self.total = 0;
         self.total_investment = 0;
         self.get_ticker_data().then(function(coins){
+            container.empty();
             $.each(coins, function(index, coin_data){
                 let coin = self.coins[coin_data.symbol]
                 if(coin && coin.name == coin_data.id){
@@ -46,6 +47,7 @@ var Portfolio = function Portfolio(){
                     coin.render(container);
                 }
             });
+            self.total_profits = self.total - self.total_investment;
             $("#coin-table").trigger("update");
             self.render_total(container);
         }).then(function(){
@@ -72,7 +74,8 @@ var Portfolio = function Portfolio(){
         )
         $('#finished-totals').html(render_delta(self.finished_profits.toFixed(2)));
         $('#total').html(self.total.toFixed(2));
-        $('#total-profit').html(render_delta(self.total-self.total_investment+self.finished_profits));
+        $('#total-profit').html(render_delta(self.total_profits+self.finished_profits));
+        $('#total-profit-percentage').html(render_delta(100 * self.total_profits/self.total_investment));
         document.title = "AC €" + self.total.toFixed(2);
     }
     return self;
