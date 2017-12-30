@@ -17,14 +17,15 @@ var Coin = function Coin(symbol, name){
         $(row).append($('<td><img class="logo" src="'+image_url+'"></td>'));
         $(row).append($('<td><a href="' + self.get_market_cap_url() + '" target="_blank">' + self.symbol + '</a></td>'));
         $(row).append($('<td>'+self.name+'</td>'));
-        $(row).append($('<td>'+self.percentage_change_7d+'</td>'));
-        $(row).append($('<td>'+self.percentage_change_24h+'</td>'));
-        $(row).append($('<td>'+self.percentage_change_1h+'</td>'));
+        $(row).append($('<td>'+render_delta(self.percentage_change_7d)+'</td>'));
+        $(row).append($('<td>'+render_delta(self.percentage_change_24h)+'</td>'));
+        $(row).append($('<td>'+render_delta(self.percentage_change_1h)+'</td>'));
         $(row).append($('<td>'+self.total_investment.toFixed(2)+'</td>'));
         $(row).append($('<td>'+self.amount.toFixed(2)+'</td>'));
         $(row).append($('<td>'+Number(self.current_price).toFixed(2)+'</td>'));
         $(row).append($('<td>'+self.total_value.toFixed(2)+'</td>'));
-        $(row).append($('<td>'+self.total_profit+'</td>'));
+        $(row).append($('<td>'+render_delta(self.total_profit)+'</td>'));
+        $(row).append($('<td>'+render_delta(100*self.total_profit/self.total_investment)+'</td>'));
 
         $(container).prepend(row);
     }
@@ -34,13 +35,13 @@ var Coin = function Coin(symbol, name){
     }
 
     self.update = function update(data){
-        self.percentage_change_7d = render_delta(data.percent_change_7d);
-        self.percentage_change_24h = render_delta(data.percent_change_24h);
-        self.percentage_change_1h = render_delta(data.percent_change_1h);
+        self.percentage_change_7d = data.percent_change_7d;
+        self.percentage_change_24h = data.percent_change_24h;
+        self.percentage_change_1h = data.percent_change_1h;
         self.current_price = data.price_eur;
         self.calculate_total_investment();
         self.total_value = self.current_price * self.amount;
-        self.total_profit = render_delta(self.total_value - self.total_investment);
+        self.total_profit = self.total_value - self.total_investment;
     }
     self.add_buy = function addBuy(amount, price){
         self.purchases.push({amount: amount, price: price});
